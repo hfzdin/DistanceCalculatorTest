@@ -32,7 +32,22 @@ https://github.com/hfzdin/DistanceCalculatorTest
 -test for logic
 
 
+URL to call when using GET method - http://localhost:8080/calculate/3/m/5/y/m
+
+URL to call when using POST method - http://localhost:8080/calculate/json
+
+JSON-
+
+{
+  "firstVal": 3,
+  "firstUnit": "m",
+  "secondVal": 5,
+  "secondUnit": "m",
+  "answerUnit": "m"
+}
+
 Future
 
 1. more robust REST API in which in the same controller have GET,POST method
 2. proper error messages
+

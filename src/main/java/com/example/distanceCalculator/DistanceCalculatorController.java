@@ -61,14 +61,15 @@ public class DistanceCalculatorController {
 				else if(calc.getAnswerUnit().toLowerCase().equals("m"))
 				{
 					if(calc.getFirstUnit().equals("y")) {
-						calc.setFirstVal(calc.getFirstVal() * 0.9144);
+						
+						calc.setAnswer((calc.getFirstVal()* 0.9144)  + calc.getSecondVal());
 					}
 
 					if(calc.getSecondUnit().equals("y")) {
-						calc.setSecondVal(calc.getSecondVal()* 0.9144);
-					}
 
-					calc.setAnswer(calc.getFirstVal()  + calc.getSecondVal());
+						calc.setAnswer(calc.getFirstVal()  + (calc.getSecondVal()* 0.9144));
+						
+					}
 					
 					return new ResponseEntity<>("The answer is " + calc.getAnswer() + " meters.", HttpStatus.OK);
 

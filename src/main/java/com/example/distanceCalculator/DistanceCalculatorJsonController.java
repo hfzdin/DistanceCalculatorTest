@@ -62,10 +62,14 @@ public class DistanceCalculatorJsonController {
 				
 			}
 			
+			else {
+				return null;
+			}
+			
 		} catch (Exception ex) {
-
+			return null;
 		}
-		return calc;
+		return null;
 		
 	}
 }
