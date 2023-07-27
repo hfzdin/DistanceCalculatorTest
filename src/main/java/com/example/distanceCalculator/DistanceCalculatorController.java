@@ -26,7 +26,9 @@ public class DistanceCalculatorController {
 
 
 		try {
-			if (!(value1==0) && !unit1.equals("") && !(value2==0) && !unit2.equals("") && !unit3.equals("") ) {
+			if (!(value1==0) && (unit1.toLowerCase().equals("y") || unit1.toLowerCase().equals("m"))
+					&& !(value2==0) && (!unit2.toLowerCase().equals("y") || !unit2.toLowerCase().equals("m"))
+					&& (!unit3.toLowerCase().equals("y") ||!unit3.toLowerCase().equals("m") )) {
 
 				if(unit3.toLowerCase().equals("y"))
 				{

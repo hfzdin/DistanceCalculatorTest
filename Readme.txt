@@ -26,15 +26,15 @@ https://github.com/hfzdin/DistanceCalculatorTest
 
 4. Write code to accept the three input and the output
 
--create a controller for the API
+-create a controller for the API GET
 -the url needs to accept 5 inputs
 -test the url validity
 -create error message for exception
+-test for logic
 
+-create a controller for POST method
+-test for logic
 
 
 5. Test the code using Rest
-
-
-7. 
 
