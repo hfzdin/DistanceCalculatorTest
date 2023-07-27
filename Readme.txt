@@ -1,7 +1,3 @@
-kim.sing@woodwing.recruitee.com
-kimsing.kor@woodwing.com
-
-
 1. Identify the requirement -
 
 Input
