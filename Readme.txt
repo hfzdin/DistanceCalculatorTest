@@ -36,5 +36,7 @@ https://github.com/hfzdin/DistanceCalculatorTest
 -test for logic
 
 
-5. Test the code using Rest
+Future
 
+1. more robust REST API in which in the same controller have GET,POST method
+2. proper error messages

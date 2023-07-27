@@ -11,7 +11,7 @@ public class DistanceCalculatorController {
 
 	 @GetMapping("/")
 	    public String showHomePage() {
-	        return "Please insert according to url /calculate/{value1}/{unit1}/{value2}/{unit2}/{unit3}";
+	        return "Please insert according to url /calculate/{value1}/{unit1}/{value2}/{unit2}/{unit3} or send JSON to /calculate/json/";
 	    }
 
 	 @GetMapping("/calculate/{value1}/{unit1}/{value2}/{unit2}/{unit3}")
@@ -23,59 +23,73 @@ public class DistanceCalculatorController {
 			@PathVariable String unit3) {
 
 		double answer=0;
+		
 
+		Calculator calc=new Calculator();
+		
+		calc.setFirstVal(value1);
+		calc.setFirstUnit(unit1);
+		calc.setSecondVal(value2);
+		calc.setSecondUnit(unit2);
+		calc.setAnswerUnit(unit3);
 
+		calc.setFirstUnit(calc.getFirstUnit().toLowerCase());
+		calc.setSecondUnit(calc.getSecondUnit().toLowerCase());
+		calc.setAnswerUnit(calc.getAnswerUnit().toLowerCase());
+		
 		try {
-			if (!(value1==0) && (unit1.toLowerCase().equals("y") || unit1.toLowerCase().equals("m"))
-					&& !(value2==0) && (!unit2.toLowerCase().equals("y") || !unit2.toLowerCase().equals("m"))
-					&& (!unit3.toLowerCase().equals("y") ||!unit3.toLowerCase().equals("m") )) {
+			if (!(calc.getFirstVal() ==0) && (calc.getFirstUnit().equals("y") || calc.getFirstUnit().equals("m"))
+					&& !(calc.getSecondVal()==0) && (calc.getSecondUnit().equals("y") || calc.getSecondUnit().equals("m"))
+					&& (!calc.getAnswerUnit().equals("y") ||!calc.getAnswerUnit().equals("m") )) {
 
-				if(unit3.toLowerCase().equals("y"))
+				if(calc.getAnswerUnit().equals("y"))
 				{
-					if(unit1.toLowerCase().equals("y")) {
-						value1=value1 * 0.9144;
+					if(calc.getFirstUnit().equals("y")) {
+						calc.setFirstVal(calc.getFirstVal() * 0.9144);
 					}
 
-					if(unit2.toLowerCase().equals("y")) {
-						value2=value2 * 0.9144;
+					if(calc.getSecondUnit().equals("y")) {
+						calc.setSecondVal(calc.getSecondVal()* 0.9144);
 					}
+					
+					calc.setAnswer((calc.getFirstVal()  + calc.getSecondVal())/0.9144);
 
-					answer=(value1+value2)/0.9144;
-
-					return new ResponseEntity<>("The answer is " + answer + " yards.", HttpStatus.OK);
-
+					return new ResponseEntity<>("The answer is " + calc.getAnswer() + " yards.", HttpStatus.OK);
+				
 				}
 
-				else if(unit3.toLowerCase().equals("m"))
+				else if(calc.getAnswerUnit().toLowerCase().equals("m"))
 				{
-					if(unit1.toLowerCase().equals("y")) {
-						value1=value1 * 0.9144;
+					if(calc.getFirstUnit().equals("y")) {
+						calc.setFirstVal(calc.getFirstVal() * 0.9144);
 					}
 
-					if(unit2.toLowerCase().equals("y")) {
-						value2=value2 * 0.9144;
+					if(calc.getSecondUnit().equals("y")) {
+						calc.setSecondVal(calc.getSecondVal()* 0.9144);
 					}
 
-					answer=value1+value2;
+					calc.setAnswer(calc.getFirstVal()  + calc.getSecondVal());
+					
+					return new ResponseEntity<>("The answer is " + calc.getAnswer() + " meters.", HttpStatus.OK);
 
-					return new ResponseEntity<>("The answer is " + answer + " meters.", HttpStatus.OK);
 				}
-
+				
 				else {
 
 					return new ResponseEntity<>("Please insert according to url /calculate/1st Value in integer/Unit for value 1 either 'y' for yard or 'm' for meter/2nd Value in integer/Unit for 2nd value either 'y' for yard or 'm' for meter/Unit for answer 'y' for yard or 'm' for meter", HttpStatus.BAD_REQUEST);
 				}
 
 
-			} else {
-
-				return new ResponseEntity<>("Please insert according to url /calculate/1st Value in integer/Unit for value 1 either 'y' for yard or 'm' for meter/2nd Value in integer/Unit for 2nd value either 'y' for yard or 'm' for meter/Unit for answer 'y' for yard or 'm' for meter", HttpStatus.BAD_REQUEST);
 			}
+			
 		} catch (Exception ex) {
-			System.out.print(ex);
-			return new ResponseEntity<>("Please insert according to url /calculate/1st Value in integer/Unit for value 1 either 'y' for yard or 'm' for meter/2nd Value in integer/Unit for 2nd value either 'y' for yard or 'm' for meter/Unit for answer 'y' for yard or 'm' for meter",HttpStatus.BAD_REQUEST);
-		}
 
+			return new ResponseEntity<>("Please insert according to url /calculate/1st Value in integer/Unit for value 1 either 'y' for yard or 'm' for meter/2nd Value in integer/Unit for 2nd value either 'y' for yard or 'm' for meter/Unit for answer 'y' for yard or 'm' for meter", HttpStatus.BAD_REQUEST);
+			
+		}
+		
+		return new ResponseEntity<>("Please insert according to url /calculate/1st Value in integer/Unit for value 1 either 'y' for yard or 'm' for meter/2nd Value in integer/Unit for 2nd value either 'y' for yard or 'm' for meter/Unit for answer 'y' for yard or 'm' for meter", HttpStatus.BAD_REQUEST);
+		
 	}
 
 }
